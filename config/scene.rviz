@@ -1,0 +1,42 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Fixed Frame: world
+    Background Color: 45; 48; 55
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.1
+      Plane Cell Count: 20
+    - Class: moveit_rviz_plugin/PlanningScene
+      Name: PlanningScene
+      Enabled: true
+      Planning Scene Topic: /monitored_planning_scene
+      Robot Description: robot_description
+      Scene Geometry:
+        Scene Alpha: 0.8
+      Scene Robot:
+        Robot Alpha: 1.0
+        Show Robot Visual: true
+        Show Robot Collision: false
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Zones
+      Enabled: true
+      Marker Topic:
+        Value: /llm_scene_markers
+        Depth: 10
+        Reliability Policy: Reliable
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 1.5
+      Pitch: 0.6
+      Yaw: 0.8
+      Focal Point: {X: 0.2, Y: 0, Z: 0.2}
+Window Geometry:
+  Width: 1200
+  Height: 800

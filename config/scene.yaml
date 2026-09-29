@@ -1,0 +1,36 @@
+# Metres in world; robot base at (0,0,0), table top z=0.10.
+# Shared source for Gazebo geometry, MoveIt collision objects and skill poses.
+frame_id: world
+world_name: llm_lab
+group_name: ur_manipulator
+tool_link: grasp_link
+cube_size: 0.035
+approach_height: 0.06
+release_clearance: 0.004
+velocity_scaling: 0.10
+acceleration_scaling: 0.10
+planning_time: 8.0
+motion_timeout: 90.0
+table:
+  center: [0.30, 0.0, 0.05]
+  size: [0.30, 0.60, 0.10]
+objects:
+  red_cube: {position: [0.22, -0.12, 0.1175], color: [0.9, 0.05, 0.05, 1.0]}
+  yellow_cube: {position: [0.22, 0.0, 0.1175], color: [0.95, 0.8, 0.05, 1.0]}
+  blue_cube: {position: [0.22, 0.12, 0.1175], color: [0.05, 0.2, 0.95, 1.0]}
+zones:
+  zone_a: [0.29, 0.12, 0.1175]
+  zone_b: [0.29, 0.0, 0.1175]
+  zone_c: [0.29, -0.12, 0.1175]
+plus_object:
+  name: orange_cube
+  # Camera view: orange is at the upper-right table corner; T is directly below it.
+  parking_position: [0.40, 0.24, 0.1175]
+  temporary_zone: [0.32, 0.24, 0.1175]
+home_joints:
+  shoulder_pan_joint: 0.0
+  shoulder_lift_joint: -1.5708
+  elbow_joint: 0.0
+  wrist_1_joint: -1.5708
+  wrist_2_joint: 0.0
+  wrist_3_joint: 0.0

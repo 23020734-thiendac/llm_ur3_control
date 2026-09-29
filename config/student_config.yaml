@@ -1,0 +1,7 @@
+student_name: Ngo Thien Dac
+student_id: '23020734'
+# P = 34 mod 6 = 4. Mapping is computed and checked in Python.
+personal_assignment:
+  zone_a: blue_cube
+  zone_b: red_cube
+  zone_c: yellow_cube
