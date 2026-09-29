@@ -211,6 +211,14 @@ home()                                 SUCCESS
 TASK SUCCESS
 ~~~
 
+Ngoài ra, có thể đưa khối cam vào vùng tạm bằng câu lệnh riêng:
+
+~~~bash
+ros2 run ur3_llm_control command "Đưa khối cam vào vùng tạm thời."
+~~~
+
+Câu lệnh này được xử lý trực tiếp bởi command.py và không đưa khối cam vào JSON plan của LLM.
+
 ## 8. Mức 2 — Chạy mức nâng cao
 
 ~~~bash
@@ -278,18 +286,6 @@ home()
 ~~~
 
 Sau đó tiếp tục đặt red_cube vào zone_b.
-
-Đưa cam vào vùng tạm riêng:
-
-~~~bash
-ros2 run ur3_llm_control command --orange-temp
-~~~
-
-Hoặc:
-
-~~~bash
-ros2 run ur3_llm_control command "Đưa khối cam vào vùng tạm thời."
-~~~
 
 ## 10. Lệnh sai và kiểm tra an toàn
 

@@ -140,11 +140,8 @@ def main():
     parser.add_argument('command', nargs='?', help='Ví dụ: Đưa vật màu đỏ sang vùng B.')
     parser.add_argument('--plan-only', action='store_true', help='Gọi LLM và kiểm tra JSON; không chạy robot')
     parser.add_argument('--teleop', action='store_true', help='Bàn phím: h reset, a/b/c chọn zone cam, q thoát')
-    parser.add_argument('--orange-temp', action='store_true', help='Đưa khối cam vào temporary zone, không gọi LLM')
     parser.add_argument('--timeout', type=float, default=600.0)
     args = parser.parse_args()
-    if args.orange_temp:
-        send_control('stage_orange')
     if args.teleop:
         try:
             teleop()

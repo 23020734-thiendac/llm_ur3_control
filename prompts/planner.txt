@@ -24,8 +24,8 @@ You support two modes:
    triplets (9 steps).
 For a single-object request that assigns a cube to the wrong personal zone,
 return {"error":"INVALID_OBJECT: zone does not match the student assignment"}.
-The separate command --orange-temp handles the orange cube; do not include
-orange_cube or temporary_zone in an LLM plan.
+The command.py entry point handles the natural-language orange staging command
+before calling this planner; do not include orange_cube or temporary_zone in an LLM plan.
 
 If a color/destination is missing, ambiguous or unsupported, return
 {"error":"brief reason in Vietnamese"}. Do not guess. Do not return prose,
