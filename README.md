@@ -9,12 +9,12 @@ MSSV: **23020734**
 
 Package hỗ trợ ba chế độ:
 
-1. **Cơ bản:** mỗi câu lệnh xử lý một khối theo chuỗi pick → place → home.
-2. **Nâng cao:** một câu lệnh xử lý cả ba khối theo mã sinh viên:
+1. **Mức 1 — Cơ bản:** mỗi câu lệnh xử lý một khối theo chuỗi pick → place → home.
+2. **Mức 2 — Nâng cao:** một câu lệnh xử lý cả ba khối theo mã sinh viên:
    - Zone A → blue_cube
    - Zone B → red_cube
    - Zone C → yellow_cube
-3. **PLUS:** thêm khối cam chiếm Zone A, B hoặc C. Robot chuyển cam sang temporary_zone trước khi đặt khối đúng màu.
+3. **Mức 3 — PLUS:** thêm khối cam chiếm Zone A, B hoặc C. Robot chuyển cam sang temporary_zone trước khi đặt khối đúng màu.
 
 Các skill chính:
 
@@ -24,7 +24,7 @@ place(object, zone)
 home()
 ~~~
 
-Gripper mô phỏng là gripper song song hai ngón. Hai ngón mở và đóng bằng cùng một trajectory để chuyển động đồng thời.
+Gripper mô phỏng là gripper song song hai ngón. Hai ngón mở và đóng bằng cùng một trajectory để chuyển động đồng thời. Các thao tác mở/đóng gripper được triển khai bên trong skill pick() và place(): pick() mở gripper trước khi tiếp cận rồi đóng để kẹp vật; place() mở gripper để nhả vật. LLM chỉ gọi pick/place, không gọi trực tiếp thao tác gripper.
 
 ## 2. Kiến trúc
 
@@ -167,7 +167,7 @@ Chờ dòng:
 
 Không chạy hai mô phỏng trong cùng một ROS_DOMAIN_ID.
 
-## 7. Chạy mức cơ bản
+## 7. Mức 1 — Chạy mức cơ bản
 
 Terminal 2:
 
@@ -211,7 +211,7 @@ home()                                 SUCCESS
 TASK SUCCESS
 ~~~
 
-## 8. Chạy mức nâng cao
+## 8. Mức 2 — Chạy mức nâng cao
 
 ~~~bash
 ros2 run ur3_llm_control command --timeout 1800 \
@@ -236,7 +236,7 @@ home()
 
 Executor chạy theo thứ tự Zone A → Zone B → Zone C và về home sau mỗi vật.
 
-## 9. Chế độ PLUS và khối cam
+## 9. Mức 3 — Chế độ PLUS và khối cam
 
 Khối cam ban đầu nằm trên mặt bàn ở phía trên bên phải. Vùng temporary_zone nằm phía dưới cam.
 
@@ -341,73 +341,3 @@ Kết quả hợp lệ:
 ~~~text
 PLAN VALID — chưa thực thi robot
 ~~~
-
-## 12. Chạy test
-
-~~~bash
-cd ~/ros2_ws/src/llm_ur3_control
-source ~/ros2_ws/install/setup.bash
-python3 -m pytest -q test/test_core.py
-~~~
-
-Hoặc:
-
-~~~bash
-python3 -m unittest discover -s test -v
-~~~
-
-Test kiểm tra schema JSON, mapping MSSV, plan một vật và nhiều vật, trùng object/zone, INVALID_OBJECT, executor fail-stop, PLUS, HTTP contract và scene Gazebo.
-
-## 13. Bảo mật
-
-Không commit:
-
-~~~text
-API key
-.env
-log/
-build/
-install/
-__pycache__/
-.pytest_cache/
-~~~
-
-API key nhập bằng biến môi trường:
-
-~~~bash
-read -rs -p '9Router API key: ' NINE_ROUTER_API_KEY
-export NINE_ROUTER_API_KEY
-~~~
-
-Trước khi commit:
-
-~~~bash
-git status
-git diff --cached
-~~~
-
-## 14. Chẩn đoán lỗi
-
-| Lỗi | Cách kiểm tra |
-|---|---|
-| Chưa đặt NINE_ROUTER_MODEL | Export model trước khi launch |
-| HTTP 401/403 | Kiểm tra API key local |
-| HTTP 404 | Kiểm tra URL có /v1 |
-| Không kết nối được 9Router | Kiểm tra 9Router chạy tại port 20128 |
-| NOT_READY | Chờ launch báo READY |
-| PLANNING_FAILED | Kiểm tra collision, TF, controller và scene |
-| ZONE_OCCUPIED | Bật PLUS để chuyển cam sang temporary_zone |
-| INVALID_OBJECT | Kiểm tra mapping MSSV |
-| LLM trả markdown | Chọn model tuân thủ JSON tốt hơn |
-
-## 15. Tài liệu đi kèm
-
-~~~text
-docs/bao_cao_thuchanh2_23020734.docx
-docs/so_do_luong_xu_ly_ur3.png
-docs/so_do_luong_xu_ly_ur3_don_gian.png
-~~~
-
-## License
-
-Apache-2.0.
