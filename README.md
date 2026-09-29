@@ -317,23 +317,3 @@ ros2 run ur3_llm_control command "Xoay robot 90 độ."
 ~~~
 
 Validator kiểm tra trước khi gọi MoveIt. Nếu một skill lỗi, executor dừng task và yêu cầu reset bằng phím h.
-
-## 11. Kiểm tra plan không chạy robot
-
-~~~bash
-source /opt/ros/humble/setup.bash
-source ~/ros2_ws/install/setup.bash
-
-export NINE_ROUTER_BASE_URL='http://localhost:20128/v1'
-export NINE_ROUTER_MODEL='MODEL_ID_TRONG_9ROUTER'
-export NINE_ROUTER_API_KEY='API_KEY_LOCAL'
-
-ros2 run ur3_llm_control command --plan-only \
-  "Đưa khối màu đỏ sang vùng B."
-~~~
-
-Kết quả hợp lệ:
-
-~~~text
-PLAN VALID — chưa thực thi robot
-~~~
